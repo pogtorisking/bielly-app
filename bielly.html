@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bielly’s World</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Newsreader:opsz,wght@6..72,400;500&display=swap">
+<style>
+:root{--bg:#eef2f5;--ink:#0f2540;--muted:#52667b;--line:#b9c9d8;--card:#fbfdfe;--acc:#1f5fbf;--hi:#f2c94c;--onacc:#fff;
+--d:"Syne","Trebuchet MS",sans-serif;--b:"Newsreader",Georgia,serif;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1b30;--ink:#e6eef8;--muted:#9bb0c6;--line:#2c4a70;--card:#12284a;--acc:#7db4ff;--hi:#f2c94c;--onacc:#0c1b30;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0c1b30;--ink:#e6eef8;--muted:#9bb0c6;--line:#2c4a70;--card:#12284a;--acc:#7db4ff;--hi:#f2c94c;--onacc:#0c1b30;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;min-height:100%;background-color:var(--bg);color:var(--ink);font:18px/1.55 var(--b);
+background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:32px 32px;background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;background:var(--bg);opacity:.82;z-index:-1}
+main{max-width:640px;margin:0 auto;padding:28px 20px 120px}
+h1,h2,h3{font-family:var(--d);line-height:1.05;margin:0}
+h1{font-size:clamp(44px,13vw,76px);font-weight:800;letter-spacing:-.02em}
+h2{font-size:34px;font-weight:800;margin-bottom:6px}
+h3{font-size:19px;font-weight:600;margin:26px 0 8px}
+p{margin:0 0 14px}
+.sub{color:var(--muted);margin-bottom:22px}
+.nick{display:inline-block;background:var(--hi);color:#0f2540;font-family:var(--d);font-weight:800;padding:2px 12px;margin:14px 0 6px;font-size:26px;transform:rotate(-1.5deg)}
+.me{display:flex;gap:16px;align-items:center;margin:22px 0}
+.pic{width:96px;height:96px;border-radius:50%;border:2px solid var(--ink);background:var(--card) center/cover;display:grid;place-items:center;font:800 40px var(--d);flex:none;cursor:pointer;overflow:hidden}
+.card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--acc);padding:12px 14px;margin:10px 0;position:relative}
+.card .x{position:absolute;top:4px;right:6px}
+.x{background:none;border:0;color:var(--muted);font-size:20px;cursor:pointer;padding:4px 8px}
+[contenteditable]{outline:none;border-bottom:1px dashed var(--line);min-height:1.5em}
+[contenteditable]:focus{border-bottom-color:var(--acc)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--ink);padding:3px 12px;border-radius:99px;font-size:16px;background:var(--card)}
+.sw{width:52px;height:52px;border:2px solid var(--ink);position:relative;cursor:pointer}
+.swatches{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.add{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}
+input,textarea,select{font:inherit;font-size:16px;color:var(--ink);background:var(--card);border:1px solid var(--ink);padding:9px 10px;border-radius:0;flex:1;min-width:0;width:100%}
+.add input,.add select{width:auto}
+textarea{display:block;min-height:96px;margin:8px 0}
+button.go,label.go{background:var(--acc);color:var(--onacc);border:0;font:600 16px var(--d);padding:10px 16px;cursor:pointer;display:inline-block}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,.pic:focus-visible,.sw:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+.bar{height:10px;background:var(--card);border:1px solid var(--ink);margin:4px 0 14px}
+.bar i{display:block;height:100%;background:var(--acc);transition:width .3s}
+.goal{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line)}
+.goal input{width:22px;height:22px;flex:none;margin-top:3px;accent-color:var(--acc)}
+.goal.done span{text-decoration:line-through;color:var(--muted)}
+.goal span{flex:1}
+.photos{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.ph{position:relative;aspect-ratio:1;border:2px solid var(--ink);background:var(--card) center/cover}
+.ph .x{color:#fff;background:rgba(0,0,0,.5);top:0;right:0}
+blockquote{margin:0;font-style:italic;font-size:21px}
+.date{font:600 13px var(--d);color:var(--muted)}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:2px solid var(--ink);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);z-index:20}
+nav button{flex:1;background:none;border:0;color:var(--muted);font:600 12px var(--d);padding:10px 2px 9px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
+nav button span{font-size:20px;line-height:1}
+nav button[aria-current="page"]{color:var(--ink);box-shadow:inset 0 3px 0 var(--acc)}
+.sky path,.sky line{stroke:var(--ink);stroke-width:2;fill:none;stroke-dasharray:1;stroke-dashoffset:0}
+@media (prefers-reduced-motion:no-preference){.sky path,.sky line{stroke-dashoffset:1;animation:draw 2.4s ease-out forwards}}
+@keyframes draw{to{stroke-dashoffset:0}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<nav id="nav" aria-label="Sections"></nav>
+<input type="file" id="file" accept="image/*" hidden>
+<script>
+var KEY="bielly-site-v1",S={};
+try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){S={}}
+var def={photo:"",intro:"Hi, I’m Bielly. I love building things, on screen and on paper. Tap this text to write your own intro.",
+about:"I’m curious, creative and always sketching the next idea. Tap to describe your personality.",
+passion:"I love how a building starts as a line on paper and becomes a place where people live. Architecture and creativity are how I see the world.",
+interests:["Architecture","Coding","Drawing","Game design"],colors:["#1f5fbf","#f2c94c","#2a9d8f"],
+projects:{games:[{t:"My first game",d:"Tap × to remove me and add your own."}],sites:[{t:"This website",d:"My home on the internet."}],ideas:[{t:"A bot that helps me plan",d:"Still just an idea."}]},
+goals:[{t:"Get into architecture school",c:"Architect",done:false},{t:"Build a house model from scratch",c:"Architect",done:false},{t:"Finish my first full game",c:"Coding",done:false},{t:"Learn a new language",c:"Coding",done:false}],
+quotes:["Every great building starts with a line."],journal:[],photos:[]};
+for(var k in def){if(S[k]===undefined)S[k]=def[k]}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+var $=function(i){return document.getElementById(i)};
+var TABS=[["home","⌂","Home"],["about","☺","About"],["projects","✎","Projects"],["goals","◎","Goals"],["memories","❖","Memories"]];
+var view="home";
+
+function sky(){return '<svg class="sky" viewBox="0 0 400 120" width="100%" aria-hidden="true"><line pathLength="1" x1="0" y1="110" x2="400" y2="110"/><path pathLength="1" d="M20 110V60h40v50M70 110V30l30-14 30 14v80M140 110V70h50v40M200 110V20h18v90M230 110V50h60v60M240 50l20-18 20 18M300 110V75h30v35M340 110V40h40v70M340 40l20-16 20 16"/></svg>'}
+function addRow(id,ph,btn,extra){return '<div class="add">'+(extra||"")+'<input id="'+id+'" placeholder="'+ph+'" aria-label="'+ph+'"><button class="go" data-act="'+btn+'">Add</button></div>'}
+
+var V={
+home:function(){return sky()+'<div class="nick">Bielly</div><h1>Welcome to my world.</h1>'+
+'<div class="me"><div class="pic" tabindex="0" role="button" aria-label="Change profile picture" data-act="pic"'+(S.photo?' style="background-image:url('+S.photo+')"':'')+'>'+(S.photo?'':'B')+'</div><p contenteditable="true" data-field="intro" style="flex:1;margin:0">'+esc(S.intro)+'</p></div>'+
+'<p class="sub">Tap the circle to add your picture. Tap any dotted text to edit it.</p>'},
+about:function(){var h='<h2>About me</h2><p class="sub">Who I am.</p><h3>My personality</h3><p contenteditable="true" data-field="about">'+esc(S.about)+'</p><h3>My interests</h3><div class="chips">';
+S.interests.forEach(function(x,i){h+='<span class="chip">'+esc(x)+' <button class="x" style="padding:0 0 0 4px;font-size:16px" data-act="delint" data-i="'+i+'" aria-label="Remove">×</button></span>'});
+h+='</div>'+addRow("newint","New interest","addint")+'<h3>My favorite colors</h3><div class="swatches">';
+S.colors.forEach(function(c,i){h+='<div class="sw" style="background:'+esc(c)+'" tabindex="0" role="button" aria-label="Remove color '+esc(c)+'" data-act="delcol" data-i="'+i+'" title="Tap to remove"></div>'});
+h+='<label class="go">+ Color<input type="color" id="newcol" style="position:absolute;opacity:0;width:1px;height:1px"></label></div><h3>Architecture and creativity</h3><p contenteditable="true" data-field="passion">'+esc(S.passion)+'</p>';return h},
+projects:function(){var h='<h2>My projects</h2><p class="sub">Things I’ve made and things I’m dreaming up.</p>';
+[["games","Games I’ve created"],["sites","My websites and bots"],["ideas","New ideas in progress"]].forEach(function(g){
+h+='<h3>'+g[1]+'</h3>';S.projects[g[0]].forEach(function(p,i){h+='<div class="card"><button class="x" data-act="delproj" data-g="'+g[0]+'" data-i="'+i+'" aria-label="Remove">×</button><strong style="font-family:var(--d)">'+esc(p.t)+'</strong><br>'+esc(p.d)+'</div>'});
+h+='<div class="add"><input id="t-'+g[0]+'" placeholder="Name" aria-label="Name"><input id="d-'+g[0]+'" placeholder="What is it?" aria-label="Description"><button class="go" data-act="addproj" data-g="'+g[0]+'">Add</button></div>'});return h},
+goals:function(){var h='<h2>My goals</h2><p class="sub">Check them off as they happen.</p>';
+["Architect","Coding","Plans"].forEach(function(c){var l=S.goals.filter(function(g){return g.c===c}),d=l.filter(function(g){return g.done}).length,p=l.length?Math.round(d/l.length*100):0;
+h+='<h3>'+({Architect:"Become an architect",Coding:"Improve my coding skills",Plans:"Future plans"}[c])+' · '+p+'%</h3><div class="bar"><i style="width:'+p+'%"></i></div>';
+S.goals.forEach(function(g,i){if(g.c!==c)return;h+='<div class="goal'+(g.done?' done':'')+'"><input type="checkbox" data-act="tog" data-i="'+i+'"'+(g.done?' checked':'')+' aria-label="Done"><span>'+esc(g.t)+'</span><button class="x" data-act="delgoal" data-i="'+i+'" aria-label="Remove">×</button></div>'})});
+h+='<h3>Add a goal</h3>'+addRow("newgoal","My next goal","addgoal",'<select id="goalcat" aria-label="Category" style="flex:0 0 auto"><option>Architect</option><option>Coding</option><option>Plans</option></select>');
+var done=S.goals.filter(function(g){return g.done});h+='<h3>Achievements</h3>';
+h+=done.length?done.map(function(g){return '<div class="card">★ '+esc(g.t)+'</div>'}).join(""):'<p class="sub">Nothing yet. Your first checked goal shows up here.</p>';return h},
+memories:function(){var h='<h2>My memories</h2><p class="sub">Photos, words and days worth keeping.</p><h3>Favorite photos</h3><div class="photos">';
+S.photos.forEach(function(p,i){h+='<div class="ph" style="background-image:url('+p+')"><button class="x" data-act="delph" data-i="'+i+'" aria-label="Remove photo">×</button></div>'});
+h+='</div><p style="margin-top:12px"><button class="go" data-act="addph">+ Add photo</button></p><h3>My quotes</h3>';
+S.quotes.forEach(function(q,i){h+='<div class="card"><button class="x" data-act="delq" data-i="'+i+'" aria-label="Remove">×</button><blockquote>“'+esc(q)+'”</blockquote></div>'});
+h+=addRow("newq","A quote I love or wrote","addq")+'<h3>My journal</h3><textarea id="jtxt" placeholder="What happened today that matters?" aria-label="Journal entry"></textarea><button class="go" data-act="addj">Save memory</button>';
+S.journal.forEach(function(j,i){h+='<div class="card"><button class="x" data-act="delj" data-i="'+i+'" aria-label="Remove">×</button><div class="date">'+esc(j.d)+'</div>'+esc(j.t).replace(/\n/g,"<br>")+'</div>'});return h}
+};
+
+function render(keep){$("app").innerHTML=V[view]();
+$("nav").innerHTML=TABS.map(function(t){return '<button data-tab="'+t[0]+'"'+(t[0]===view?' aria-current="page"':'')+'><span aria-hidden="true">'+t[1]+'</span>'+t[2]+'</button>'}).join("");
+if(!keep)window.scrollTo(0,0)}
+function go(v){view=v;try{history.replaceState(null,"","#"+v)}catch(e){}render()}
+function val(id){var e=$(id);return e?e.value.trim():""}
+
+function shrink(file,max,cb){var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){var s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=im.width*s;c.height=im.height*s;c.getContext("2d").drawImage(im,0,0,c.width,c.height);cb(c.toDataURL("image/jpeg",.72))};im.src=r.result};r.readAsDataURL(file)}
+var upMode="";
+$("file").addEventListener("change",function(e){var f=e.target.files[0];if(!f)return;
+shrink(f,upMode==="pic"?320:640,function(d){if(upMode==="pic")S.photo=d;else S.photos.push(d);save();render(true)});e.target.value=""});
+
+document.addEventListener("click",function(e){
+var t=e.target.closest("[data-tab]");if(t){go(t.dataset.tab);return}
+var b=e.target.closest("[data-act]");if(!b)return;var a=b.dataset.act,i=+b.dataset.i,g=b.dataset.g,v;
+if(a==="pic"||a==="addph"){upMode=a;$("file").click();return}
+if(a==="tog"){S.goals[i].done=!S.goals[i].done}
+else if(a==="delgoal")S.goals.splice(i,1);
+else if(a==="addgoal"){v=val("newgoal");if(!v)return;S.goals.push({t:v,c:$("goalcat").value,done:false})}
+else if(a==="addint"){v=val("newint");if(!v)return;S.interests.push(v)}
+else if(a==="delint")S.interests.splice(i,1);
+else if(a==="delcol")S.colors.splice(i,1);
+else if(a==="addproj"){v=val("t-"+g);if(!v)return;S.projects[g].push({t:v,d:val("d-"+g)})}
+else if(a==="delproj")S.projects[g].splice(i,1);
+else if(a==="delph")S.photos.splice(i,1);
+else if(a==="addq"){v=val("newq");if(!v)return;S.quotes.push(v)}
+else if(a==="delq")S.quotes.splice(i,1);
+else if(a==="addj"){v=val("jtxt");if(!v)return;S.journal.unshift({t:v,d:new Date().toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"})})}
+else if(a==="delj")S.journal.splice(i,1);
+else return;
+save();render(true)});
+document.addEventListener("keydown",function(e){if((e.key==="Enter"||e.key===" ")&&e.target.matches('[role="button"][data-act]')){e.preventDefault();e.target.click()}});
+document.addEventListener("change",function(e){if(e.target.id==="newcol"){S.colors.push(e.target.value);save();render(true)}});
+document.addEventListener("focusout",function(e){var f=e.target.dataset&&e.target.dataset.field;if(f){S[f]=e.target.innerText.trim();save()}});
+
+var h=(location.hash||"").slice(1);if(V[h])view=h;render();
+</script>
+</body>
+</html>
